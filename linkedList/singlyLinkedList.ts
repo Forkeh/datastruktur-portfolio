@@ -47,12 +47,25 @@ class SinglyLinkedList<T> {
         }
     }
 
+    getFirst() {
+        return this.head.data;
+    }
+
+    getLast() {
+        let current = this.head;
+
+        while (current.next) {
+            current = current.next;
+        }
+        return current.data;
+    }
+
     printList() {
         let current: Node<T> | null = this.head;
 
         console.log("Length:", this.length);
 
-        while (current !== null) {
+        while (current) {
             console.log("data: ", current.data, "next data:", current.next?.data);
 
             current = current.next;

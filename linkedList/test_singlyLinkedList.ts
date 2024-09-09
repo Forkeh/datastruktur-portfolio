@@ -14,6 +14,8 @@ singlyLinkedList.add(data3);
 
 singlyLinkedList.printList();
 
+console.log("Last:", singlyLinkedList.getLast());
+
 singlyLinkedList.remove(data2);
 
 singlyLinkedList.printList();
@@ -21,3 +23,4 @@ singlyLinkedList.printList();
 singlyLinkedList.remove(data1);
 
 singlyLinkedList.printList();
+console.log("Last:", singlyLinkedList.getLast());
