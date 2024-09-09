@@ -14,10 +14,12 @@ singlyLinkedList.add(data3);
 
 singlyLinkedList.printList();
 
-const firstNode = singlyLinkedList.getFirstNode();
-console.log("firstNode", firstNode);
+console.log("from index:", singlyLinkedList.get(0));
 
-console.log("NextNode:", singlyLinkedList.getNextNode(firstNode));
+// const firstNode = singlyLinkedList.getFirstNode();
+// console.log("firstNode", firstNode);
+
+// console.log("NextNode:", singlyLinkedList.getNextNode(firstNode));
 
 // console.log("Last:", singlyLinkedList.getLast());
 

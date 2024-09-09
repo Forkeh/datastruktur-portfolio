@@ -73,7 +73,20 @@ class SinglyLinkedList<T> {
     }
 
     get(index: number) {
-        //TODO Add implementation
+        if (this.length <= index) {
+            console.error("Index out of bounds");
+            return null;
+        }
+
+        let currentIndex = 0;
+        let current = this.head;
+
+        while (currentIndex < index) {
+            current = current?.next || current;
+            currentIndex++;
+        }
+
+        return current;
     }
 
     getFirstNode() {
