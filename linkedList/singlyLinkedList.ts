@@ -1,12 +1,28 @@
 import { Node } from "./node";
 
 class SinglyLinkedList<T> {
-    head: Node<T>;
+    head: Node<T> | null;
     length: number;
 
     constructor(head: Node<T>) {
         this.head = head;
         this.length = 1;
+    }
+
+    printList() {
+        let current: Node<T> | null = this.head;
+
+        console.log("Length:", this.length);
+
+        if (!current) {
+            console.log("List is empty!");
+        }
+
+        while (current) {
+            console.log("data: ", current.data, "next data:", current.next?.data);
+
+            current = current.next;
+        }
     }
 
     add(data: T) {
@@ -48,28 +64,18 @@ class SinglyLinkedList<T> {
     }
 
     getFirst() {
-        return this.head.data;
+        return this.head?.data || null;
     }
 
     getLast() {
+        if (!this.head) return null;
+
         let current = this.head;
 
         while (current.next) {
             current = current.next;
         }
         return current.data;
-    }
-
-    printList() {
-        let current: Node<T> | null = this.head;
-
-        console.log("Length:", this.length);
-
-        while (current) {
-            console.log("data: ", current.data, "next data:", current.next?.data);
-
-            current = current.next;
-        }
     }
 
     get(index: number) {
@@ -101,6 +107,81 @@ class SinglyLinkedList<T> {
         }
 
         return current?.next || null;
+    }
+
+    getLastNode() {
+        if (!this.head) return;
+
+        let current = this.head;
+
+        while (current.next) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    getNodeWith(data: T) {
+        if (!this.head) return null;
+
+        let current: Node<T> | null = this.head;
+
+        while (current && current.data !== data) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    removeNode(node: Node<T>) {
+        if (!this.head) return;
+
+        if (this.head === node) {
+            this.head = this.head.next;
+            this.length--;
+            return;
+        }
+
+        let current: Node<T> | null = this.head;
+
+        while (current && current.next !== node) {
+            current = current.next;
+        }
+
+        if (current && current.next === node) {
+            current.next = current.next.next || null;
+            this.length--;
+        }
+    }
+
+    removeFirstNode() {
+        if (!this.head) return;
+
+        if (this.head.next) {
+            this.head = this.head.next;
+        } else {
+            this.head = null;
+        }
+        this.length--;
+    }
+
+    removeLastNode() {
+        if (!this.head) return;
+
+        if (!this.head.next) {
+            this.head = null;
+            this.length--;
+            return;
+        }
+
+        let current = this.head;
+
+        while (current.next && current.next.next) {
+            current = current.next;
+        }
+
+        current.next = null;
+        this.length--;
     }
 }
 
