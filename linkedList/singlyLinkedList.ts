@@ -183,6 +183,32 @@ class SinglyLinkedList<T> {
         current.next = null;
         this.length--;
     }
+
+    insertAfter(node: Node<T>) {
+        // TODO: Insert what?
+        if (!this.head) return;
+
+        let current: Node<T> | null = this.head;
+
+        while (current && current !== node) {
+            current = current.next;
+        }
+
+        if (current) {
+            node.next = current.next;
+            current.next = node;
+            this.length++;
+        }
+    }
+
+    clear() {
+        this.head = null;
+        this.length = 0;
+    }
+
+    size() {
+        return this.length;
+    }
 }
 
 export { SinglyLinkedList };
