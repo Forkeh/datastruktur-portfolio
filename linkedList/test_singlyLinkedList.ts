@@ -14,13 +14,18 @@ singlyLinkedList.add(data3);
 
 singlyLinkedList.printList();
 
-console.log("Last:", singlyLinkedList.getLast());
+const firstNode = singlyLinkedList.getFirstNode();
+console.log("firstNode", firstNode);
 
-singlyLinkedList.remove(data2);
+console.log("NextNode:", singlyLinkedList.getNextNode(firstNode));
 
-singlyLinkedList.printList();
+// console.log("Last:", singlyLinkedList.getLast());
 
-singlyLinkedList.remove(data1);
+// singlyLinkedList.remove(data2);
 
-singlyLinkedList.printList();
-console.log("Last:", singlyLinkedList.getLast());
+// singlyLinkedList.printList();
+
+// singlyLinkedList.remove(data1);
+
+// singlyLinkedList.printList();
+// console.log("Last:", singlyLinkedList.getLast());

@@ -71,6 +71,24 @@ class SinglyLinkedList<T> {
             current = current.next;
         }
     }
+
+    get(index: number) {
+        //TODO Add implementation
+    }
+
+    getFirstNode() {
+        return this.head;
+    }
+
+    getNextNode(node: Node<T>) {
+        let current: Node<T> | null = this.head;
+
+        while (current && node !== current) {
+            current = current.next;
+        }
+
+        return current?.next || null;
+    }
 }
 
 export { SinglyLinkedList };
