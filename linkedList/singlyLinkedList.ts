@@ -184,19 +184,18 @@ class SinglyLinkedList<T> {
         this.length--;
     }
 
-    insertAfter(node: Node<T>) {
-        // TODO: Insert what?
+    insertAfter(nodeTarget: Node<T>, newNode: Node<T>) {
         if (!this.head) return;
 
         let current: Node<T> | null = this.head;
 
-        while (current && current !== node) {
+        while (current && current !== nodeTarget) {
             current = current.next;
         }
 
         if (current) {
-            node.next = current.next;
-            current.next = node;
+            newNode.next = current.next;
+            nodeTarget.next = newNode;
             this.length++;
         }
     }

@@ -9,14 +9,18 @@ const data3 = { prop: 3 };
 const data4 = { prop: 4 };
 
 const node1 = new Node(data1);
+const nodeNew = new Node(data4);
+
 const singlyLinkedList = new SinglyLinkedList(node1);
+
 singlyLinkedList.add(data2);
 singlyLinkedList.add(data3);
 
-singlyLinkedList.printList();
-singlyLinkedList.clear();
-singlyLinkedList.printList();
+const node = singlyLinkedList.getLastNode();
 
+singlyLinkedList.printList();
+singlyLinkedList.insertAfter(node!, nodeNew);
+singlyLinkedList.printList();
 
 // console.log("firstNode:", singlyLinkedList.getFirstNode());
 
