@@ -85,6 +85,7 @@ export default class DoublyLinkedList<T> {
     removeLast() {
         if (!this.tail) return;
 
+        const oldTail = this.tail;
         this.tail = this.tail.prev;
 
         if (this.tail) {
@@ -93,11 +94,14 @@ export default class DoublyLinkedList<T> {
             this.head = null;
         }
         this.length--;
+
+        return oldTail.data;
     }
 
     removeFirst() {
         if (!this.head) return;
 
+        const oldHead = this.head;
         this.head = this.head.next;
 
         if (this.head) {
@@ -105,5 +109,35 @@ export default class DoublyLinkedList<T> {
         }
 
         this.length--;
+
+        return oldHead.data;
+    }
+
+    removeNode(node: NodeDoubly<T>) {
+        if (!this.head) return;
+
+        let current: NodeDoubly<T> | null = this.head;
+
+        while (current && current !== node) {
+            current = current.next;
+        }
+
+        if (current === node) {
+            const nodePrev = current.prev;
+
+            const nodeNext = current.next;
+
+            if (nodePrev) {
+                nodePrev.next = nodeNext;
+            } else {
+                this.head = nodeNext;
+            }
+
+            if (nodeNext) {
+                nodeNext.prev = nodePrev;
+            } else {
+                this.tail = nodePrev;
+            }
+        }
     }
 }

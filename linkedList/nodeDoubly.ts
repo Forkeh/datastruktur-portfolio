@@ -1,5 +1,5 @@
 export default class NodeDoubly<T> {
-    data: T;
+    data: T | null;
     prev: NodeDoubly<T> | null;
     next: NodeDoubly<T> | null;
 

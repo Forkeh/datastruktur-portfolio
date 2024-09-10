@@ -12,14 +12,18 @@ const node1 = new NodeDoubly(data1);
 const node2 = new NodeDoubly(data2);
 const node3 = new NodeDoubly(data3);
 
-const doublyLinkedList = new DoublyLinkedList(node1);
+const list = new DoublyLinkedList(node1);
 
-doublyLinkedList.dumpList();
-doublyLinkedList.addFirst(data2);
-doublyLinkedList.dumpList();
-doublyLinkedList.addLast(data3);
-doublyLinkedList.dumpList();
-// doublyLinkedList.removeLast()
+list.dumpList();
+list.addFirst(data2);
+list.dumpList();
+list.addLast(data3);
+list.dumpList();
+list.removeLast()
+list.dumpList();
+// doublyLinkedList.removeFirst()
 // doublyLinkedList.dumpList();
-doublyLinkedList.removeFirst()
-doublyLinkedList.dumpList();
+list.addFirst(list.removeFirst()!);
+list.dumpList();
+list.removeNode(node1);
+list.dumpList();
