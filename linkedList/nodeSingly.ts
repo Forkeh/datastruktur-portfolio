@@ -1,6 +1,6 @@
-class Node<T> {
+class NodeSingly<T> {
     data: T;
-    next: Node<T> | null;
+    next: NodeSingly<T> | null;
 
     constructor(data: T) {
         this.data = data;
@@ -8,4 +8,4 @@ class Node<T> {
     }
 }
 
-export { Node };
+export { NodeSingly };

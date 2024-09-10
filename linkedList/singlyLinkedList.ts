@@ -1,16 +1,16 @@
-import { Node } from "./node";
+import { NodeSingly } from "./nodeSingly";
 
 class SinglyLinkedList<T> {
-    head: Node<T> | null;
+    head: NodeSingly<T> | null;
     length: number;
 
-    constructor(head: Node<T>) {
+    constructor(head: NodeSingly<T>) {
         this.head = head;
         this.length = 1;
     }
 
     printList() {
-        let current: Node<T> | null = this.head;
+        let current: NodeSingly<T> | null = this.head;
 
         console.log("Length:", this.length);
 
@@ -26,7 +26,7 @@ class SinglyLinkedList<T> {
     }
 
     add(data: T) {
-        const newNode = new Node(data);
+        const newNode = new NodeSingly(data);
 
         newNode.next = this.head;
 
@@ -99,8 +99,8 @@ class SinglyLinkedList<T> {
         return this.head;
     }
 
-    getNextNode(node: Node<T>) {
-        let current: Node<T> | null = this.head;
+    getNextNode(node: NodeSingly<T>) {
+        let current: NodeSingly<T> | null = this.head;
 
         while (current && node !== current) {
             current = current.next;
@@ -124,7 +124,7 @@ class SinglyLinkedList<T> {
     getNodeWith(data: T) {
         if (!this.head) return null;
 
-        let current: Node<T> | null = this.head;
+        let current: NodeSingly<T> | null = this.head;
 
         while (current && current.data !== data) {
             current = current.next;
@@ -133,7 +133,7 @@ class SinglyLinkedList<T> {
         return current;
     }
 
-    removeNode(node: Node<T>) {
+    removeNode(node: NodeSingly<T>) {
         if (!this.head) return;
 
         if (this.head === node) {
@@ -142,7 +142,7 @@ class SinglyLinkedList<T> {
             return;
         }
 
-        let current: Node<T> | null = this.head;
+        let current: NodeSingly<T> | null = this.head;
 
         while (current && current.next !== node) {
             current = current.next;
@@ -184,10 +184,10 @@ class SinglyLinkedList<T> {
         this.length--;
     }
 
-    insertAfter(nodeTarget: Node<T>, newNode: Node<T>) {
+    insertAfter(nodeTarget: NodeSingly<T>, newNode: NodeSingly<T>) {
         if (!this.head) return;
 
-        let current: Node<T> | null = this.head;
+        let current: NodeSingly<T> | null = this.head;
 
         while (current && current !== nodeTarget) {
             current = current.next;

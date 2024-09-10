@@ -1,5 +1,5 @@
 import { SinglyLinkedList } from "./singlyLinkedList";
-import { Node } from "./node";
+import { NodeSingly } from "./nodeSingly";
 
 console.log("RUNNING");
 
@@ -8,8 +8,8 @@ const data2 = { prop: 2 };
 const data3 = { prop: 3 };
 const data4 = { prop: 4 };
 
-const node1 = new Node(data1);
-const nodeNew = new Node(data4);
+const node1 = new NodeSingly(data1);
+const nodeNew = new NodeSingly(data4);
 
 const singlyLinkedList = new SinglyLinkedList(node1);
 
