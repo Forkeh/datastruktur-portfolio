@@ -7,14 +7,19 @@ export default class DoublyLinkedList<T> {
 
     constructor(head: NodeDoubly<T>) {
         this.head = head;
-        this.tail = null;
+        this.tail = this.head;
         this.length = 1;
     }
 
     dumpList() {
         let current: NodeDoubly<T> | null = this.head;
 
+        console.log("Linked List");
+        console.log("============");
+        console.log("head", this.head?.data);
+        console.log("tail", this.tail?.data);
         console.log("Length:", this.length);
+        console.log("============");
 
         if (!current) {
             console.log("List is empty!");
@@ -30,6 +35,11 @@ export default class DoublyLinkedList<T> {
                 current.next?.data || null
             );
 
+            // console.log("node:", current.data);
+            // console.log("---------------");
+            // console.log("prev:", current.prev?.data || null);
+            // console.log("next:", current.next?.data || null);
+
             current = current.next;
         }
     }
@@ -41,11 +51,14 @@ export default class DoublyLinkedList<T> {
     }
 
     addNodeFirst(newNode: NodeDoubly<T>) {
-        if (this.head !== null) {
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.next = this.head;
             this.head.prev = newNode;
+            this.head = newNode;
         }
-        newNode.next = this.head;
-        this.head = newNode;
 
         this.length++;
     }
@@ -57,19 +70,40 @@ export default class DoublyLinkedList<T> {
     }
 
     addNodeLast(newNode: NodeDoubly<T>) {
-        if (this.head === null) {
+        if (!this.head) {
             this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.tail!.next = newNode;
+            newNode.prev = this.tail;
+            this.tail = newNode;
         }
-
-        let current = this.head;
-
-        while (current.next) {
-            current = current.next;
-        }
-
-        current.next = newNode;
-        newNode.prev = current;
 
         this.length++;
+    }
+
+    removeLast() {
+        if (!this.tail) return;
+
+        this.tail = this.tail.prev;
+
+        if (this.tail) {
+            this.tail.next = null;
+        } else {
+            this.head = null;
+        }
+        this.length--;
+    }
+
+    removeFirst() {
+        if (!this.head) return;
+
+        this.head = this.head.next;
+
+        if (this.head) {
+            this.head.prev = null;
+        }
+
+        this.length--;
     }
 }

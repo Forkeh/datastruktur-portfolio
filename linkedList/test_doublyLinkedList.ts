@@ -19,3 +19,7 @@ doublyLinkedList.addFirst(data2);
 doublyLinkedList.dumpList();
 doublyLinkedList.addLast(data3);
 doublyLinkedList.dumpList();
+// doublyLinkedList.removeLast()
+// doublyLinkedList.dumpList();
+doublyLinkedList.removeFirst()
+doublyLinkedList.dumpList();
