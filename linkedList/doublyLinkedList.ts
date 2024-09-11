@@ -138,6 +138,8 @@ export default class DoublyLinkedList<T> {
             } else {
                 this.tail = nodePrev;
             }
+
+            this.length--;
         }
     }
 }
