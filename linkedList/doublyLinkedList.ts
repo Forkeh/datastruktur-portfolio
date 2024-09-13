@@ -192,4 +192,48 @@ export default class DoublyLinkedList<T> {
             this.length++;
         }
     }
+
+    swapNodes(nodeA: NodeDoubly<T>, nodeB: NodeDoubly<T>) {
+        if (nodeA === nodeB) {
+            return; // No need to swap if they're the same node
+        }
+
+        // If nodeA or nodeB is the head, update the head reference
+        if (nodeA === this.head) {
+            this.head = nodeB;
+        } else if (nodeB === this.head) {
+            this.head = nodeA;
+        }
+
+        // If nodeA or nodeB is the tail, update the tail reference
+        if (nodeA === this.tail) {
+            this.tail = nodeB;
+        } else if (nodeB === this.tail) {
+            this.tail = nodeA;
+        }
+
+        // Swap the next pointers
+        let tempNext = nodeA.next;
+        nodeA.next = nodeB.next;
+        nodeB.next = tempNext;
+
+        if (nodeA.next !== null) {
+            nodeA.next.prev = nodeA;
+        }
+        if (nodeB.next !== null) {
+            nodeB.next.prev = nodeB;
+        }
+
+        // Swap the prev pointers
+        let tempPrev = nodeA.prev;
+        nodeA.prev = nodeB.prev;
+        nodeB.prev = tempPrev;
+
+        if (nodeA.prev !== null) {
+            nodeA.prev.next = nodeA;
+        }
+        if (nodeB.prev !== null) {
+            nodeB.prev.next = nodeB;
+        }
+    }
 }

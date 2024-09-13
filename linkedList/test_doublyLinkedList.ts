@@ -26,3 +26,5 @@ list.insertBeforeNode(node4, node3);
 list.dumpList();
 list.insertAfterNode(node5, node1);
 list.dumpList();
+list.swapNodes(node5, node4);
+list.dumpList();
