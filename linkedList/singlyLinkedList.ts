@@ -96,7 +96,7 @@ class SinglyLinkedList<T> {
     }
 
     getFirstNode() {
-        return this.head;
+        return this.head || null;
     }
 
     getNextNode(node: NodeSingly<T>) {
