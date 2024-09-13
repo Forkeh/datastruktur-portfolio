@@ -236,4 +236,26 @@ export default class DoublyLinkedList<T> {
             nodeB.prev.next = nodeB;
         }
     }
+
+    size() {
+        //TODO: Could also iterate through list and update a counter
+        return this.length;
+    }
+
+    nodeAt(index: number) {
+        if (!this.head) return;
+
+        if (index >= this.length) {
+            throw new Error("Index out of bounds");
+        }
+
+        let current: NodeDoubly<T> | null = this.head;
+        let curIndex = 0;
+
+        while (current && curIndex !== index) {
+            current = current.next;
+            curIndex++;
+        }
+        return current;
+    }
 }

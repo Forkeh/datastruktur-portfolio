@@ -28,3 +28,4 @@ list.insertAfterNode(node5, node1);
 list.dumpList();
 list.swapNodes(node5, node4);
 list.dumpList();
+console.log("nodeAt: ", list.nodeAt(4)?.data);
