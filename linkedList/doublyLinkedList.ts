@@ -258,4 +258,77 @@ export default class DoublyLinkedList<T> {
         }
         return current;
     }
+
+    get(index: number) {
+        return this.nodeAt(index)?.data;
+    }
+
+    indexOf(data: any) {
+        if (!this.head) return -1;
+
+        let current: NodeDoubly<T> | null = this.head;
+        let curIndex = 0;
+
+        while (current && current.data !== data) {
+            current = current.next;
+            curIndex++;
+        }
+
+        if (current?.data === data) {
+            return curIndex;
+        } else {
+            return -1;
+        }
+    }
+
+    insertAfter(index: number, data: any) {
+        const existingNode = this.nodeAt(index);
+
+        const newNode = new NodeDoubly(data);
+
+        if (existingNode) {
+            this.insertAfterNode(newNode, existingNode);
+            this.length++;
+        }
+    }
+
+    insertBefore(index: number, data: any) {
+        const existingNode = this.nodeAt(index);
+
+        const newNode = new NodeDoubly(data);
+
+        if (existingNode) {
+            this.insertBeforeNode(newNode, existingNode);
+            this.length++;
+        }
+    }
+
+    first() {
+        return this.head?.data;
+    }
+
+    last() {
+        return this.tail?.data;
+    }
+
+    remove(data: any) {
+        const indexOfNode = this.indexOf(data);
+
+        if (indexOfNode >= 0) {
+            const nodeToRemove = this.nodeAt(indexOfNode);
+
+            if (nodeToRemove) {
+                this.removeNode(nodeToRemove);
+                this.length--;
+            }
+        }
+    }
+
+    removeIndex(index: number) {
+        const nodeToRemove = this.nodeAt(index);
+
+        if (nodeToRemove) {
+            this.removeNode(nodeToRemove);
+        }
+    }
 }
