@@ -142,4 +142,54 @@ export default class DoublyLinkedList<T> {
             this.length--;
         }
     }
+
+    insertBeforeNode(newNode: NodeDoubly<T>, existingNode: NodeDoubly<T>) {
+        if (!this.head) return;
+
+        let current: NodeDoubly<T> | null = this.head;
+
+        while (current && current !== existingNode) {
+            current = current.next;
+        }
+
+        if (current === existingNode) {
+            const nodePrev = current.prev;
+
+            current.prev = newNode;
+            newNode.next = current;
+            newNode.prev = nodePrev;
+
+            if (nodePrev) {
+                nodePrev.next = newNode;
+            } else {
+                this.head = newNode;
+            }
+            this.length++;
+        }
+    }
+
+    insertAfterNode(newNode: NodeDoubly<T>, existingNode: NodeDoubly<T>) {
+        if (!this.head) return;
+
+        let current: NodeDoubly<T> | null = this.head;
+
+        while (current && current !== existingNode) {
+            current = current.next;
+        }
+
+        if (current === existingNode) {
+            const nodeNext = current.next;
+
+            current.next = newNode;
+            newNode.prev = current;
+            newNode.next = nodeNext;
+
+            if (nodeNext) {
+                nodeNext.prev = newNode;
+            } else {
+                this.tail = newNode;
+            }
+            this.length++;
+        }
+    }
 }
