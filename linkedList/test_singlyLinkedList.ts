@@ -11,8 +11,9 @@ const data4 = { prop: 4 };
 const node1 = new NodeSingly(data1);
 const nodeNew = new NodeSingly(data4);
 
-const singlyLinkedList = new SinglyLinkedList(node1);
+const singlyLinkedList = new SinglyLinkedList();
 
+singlyLinkedList.add(data1);
 singlyLinkedList.add(data2);
 singlyLinkedList.add(data3);
 

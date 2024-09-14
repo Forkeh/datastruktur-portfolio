@@ -4,8 +4,8 @@ class SinglyLinkedList<T> {
     head: NodeSingly<T> | null;
     length: number;
 
-    constructor(head: NodeSingly<T>) {
-        this.head = head;
+    constructor() {
+        this.head = null;
         this.length = 1;
     }
 
@@ -40,11 +40,7 @@ class SinglyLinkedList<T> {
 
         // If the head node itself holds the data to be deleted
         if (this.head.data === data) {
-            if (this.head.next) {
-                this.head = this.head.next;
-            } else {
-                this.head.next = null;
-            }
+            this.head = this.head.next;
             this.length--;
             return;
         }
