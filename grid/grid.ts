@@ -40,10 +40,12 @@ export default class Grid {
         return this.grid[col][row];
     }
 
+    // TODO: Hvad menes der præcis med den her, hvad skal returneres?
     indexFor(param1: IColRow | number, param2?: number) {
         const { col, row } = this.paramConversion(param1, param2);
 
-        const index = row;
+        const index = row * this.cols() + col;
+        return index;
     }
 
     rowColFor() {
@@ -84,11 +86,6 @@ export default class Grid {
 
     rows() {
         // TODO: Is this correct?
-        // let rows = 0;
-        // for (let i = 0; i < this.grid.length; i++) {
-        //     rows += this.grid[i].length;
-        // }
-        // return rows;
         return this.grid[0].length;
     }
 
@@ -104,8 +101,12 @@ export default class Grid {
         return size;
     }
 
-    fill() {
-        //TODO
+    fill(value: number) {
+        for (let col = 0; col < this.grid.length; col++) {
+            for (let row = 0; row < this.grid[col].length; row++) {
+                this.grid[col][row] = value;
+            }
+        }
     }
 
     paramConversion(param1: number | IColRow, param2?: number) {
