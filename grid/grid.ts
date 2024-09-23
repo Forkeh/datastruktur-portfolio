@@ -1,16 +1,16 @@
 interface IColRow {
-    col: number;
     row: number;
+    col: number;
 }
 
 export default class Grid {
     grid: number[][];
 
-    constructor(cols: number, rows: number) {
-        const newGrid = new Array(cols);
+    constructor(rows: number, cols: number) {
+        const newGrid = new Array(rows);
 
-        for (let col = 0; col < newGrid.length; col++) {
-            newGrid[col] = new Array(rows).fill(0);
+        for (let row = 0; row < newGrid.length; row++) {
+            newGrid[row] = new Array(cols).fill(0);
         }
         console.log(newGrid);
 
@@ -22,34 +22,40 @@ export default class Grid {
     }
 
     set(colRows: IColRow, value: number): void;
-    set(col: number, value: number, row: number): void;
+    set(row: number, value: number, col: number): void;
 
     set(param1: IColRow | number, value: number, param2?: number): void {
-        const { col, row } = this.paramConversion(param1, param2);
+        const { row, col } = this.paramConversion(param1, param2);
 
-        const cell = this.grid[col][row];
+        const cell = this.grid[row][col];
 
         if (typeof cell === "number") {
-            this.grid[col][row] = value;
+            this.grid[row][col] = value;
         }
     }
 
     get(param1: IColRow | number, param2?: number): number {
-        const { col, row } = this.paramConversion(param1, param2);
+        const { row, col } = this.paramConversion(param1, param2);
 
-        return this.grid[col][row];
+        return this.grid[row][col];
     }
 
     // TODO: Hvad menes der præcis med den her, hvad skal returneres?
     indexFor(param1: IColRow | number, param2?: number) {
-        const { col, row } = this.paramConversion(param1, param2);
+        const { row, col } = this.paramConversion(param1, param2);
+        
+        if (row > this.rows() - 1 || col > this.cols() - 1) return;
 
-        const index = row * this.cols() + col;
-        return index;
+        return row * this.cols() + col;
     }
 
-    rowColFor() {
-        //TODO
+    rowColFor(index: number) {
+        if (index > this.size() - 1) return;
+
+        const numCols = this.cols(); // Get the number of columns in the grid
+        const row = Math.floor(index / numCols); // Calculate the row number
+        const col = index % numCols; // Calculate the column number
+        return { row, col };
     }
 
     neighbours() {
@@ -85,12 +91,11 @@ export default class Grid {
     }
 
     rows() {
-        // TODO: Is this correct?
-        return this.grid[0].length;
+        return this.grid.length;
     }
 
     cols() {
-        return this.grid.length;
+        return this.grid[0].length;
     }
 
     size() {
@@ -111,7 +116,7 @@ export default class Grid {
 
     paramConversion(param1: number | IColRow, param2?: number) {
         if (typeof param1 === "number" && typeof param2 === "number") {
-            return { col: param1, row: param2 };
+            return { row: param1, col: param2 };
         } else if (typeof param1 === "object") {
             return param1 as IColRow;
         }

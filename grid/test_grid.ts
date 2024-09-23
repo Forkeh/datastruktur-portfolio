@@ -5,21 +5,22 @@ console.log("RUNNING GRID TESTS");
 const COLS = 5;
 const ROWS = 3;
 
-const grid = new Grid(COLS, ROWS);
+const grid = new Grid(ROWS, COLS);
 
-const colRow = { col: 4, row: 2 };
+const colRow = { col: 3, row: 0 };
 
 grid.dump();
-// grid.set(colRow, 1);
-// grid.set(4, 1, 1);
-// grid.dump();
-// console.log(grid.get(colRow));
-// console.log(grid.get(2, 2));
-// grid.dump();
-// console.log("Cols:", grid.cols());
-// console.log("Rows:", grid.rows());
-// console.log("Size:", grid.size());
+grid.set(colRow, 1);
+grid.set(2, 1, 4);
+grid.dump();
+console.log(grid.get(colRow));
+console.log(grid.get(2, 4));
+grid.dump();
+console.log("Cols:", grid.cols());
+console.log("Rows:", grid.rows());
+console.log("Size:", grid.size());
 // // grid.fill(3);
-// console.log("IndexFor:", grid.indexFor(1, 1));
+console.log("IndexFor:", grid.indexFor(2, 4));
+console.log("rowColFor", grid.rowColFor(14));
 
 // grid.dump();
