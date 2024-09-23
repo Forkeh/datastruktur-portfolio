@@ -9,9 +9,10 @@ export default class Grid {
     constructor(cols: number, rows: number) {
         const newGrid = new Array(cols);
 
-        for (let col = 0; col < cols; col++) {
+        for (let col = 0; col < newGrid.length; col++) {
             newGrid[col] = new Array(rows).fill(0);
         }
+        console.log(newGrid);
 
         this.grid = newGrid;
     }
@@ -23,21 +24,8 @@ export default class Grid {
     set(colRows: IColRow, value: number): void;
     set(col: number, value: number, row: number): void;
 
-    set(param1: IColRow | number, value: number, param2?: number) {
-        let col;
-        let row;
-
-        if (typeof param1 === "object") {
-            col = param1.col;
-            row = param1.row;
-        } else if (typeof param1 === "number" && typeof param2 === "number") {
-            const colRow = this.paramConversion(param1, param2);
-
-            col = colRow.col;
-            row = colRow.row;
-        } else {
-            throw new Error("Incorrect arguments");
-        }
+    set(param1: IColRow | number, value: number, param2?: number): void {
+        const { col, row } = this.paramConversion(param1, param2);
 
         const cell = this.grid[col][row];
 
@@ -46,12 +34,16 @@ export default class Grid {
         }
     }
 
-    get() {
-        //TODO
+    get(param1: IColRow | number, param2?: number): number {
+        const { col, row } = this.paramConversion(param1, param2);
+
+        return this.grid[col][row];
     }
 
-    indexFor() {
-        //TODO
+    indexFor(param1: IColRow | number, param2?: number) {
+        const { col, row } = this.paramConversion(param1, param2);
+
+        const index = row;
     }
 
     rowColFor() {
@@ -91,23 +83,30 @@ export default class Grid {
     }
 
     rows() {
-        //TODO
+        // TODO: Is this correct?
+        // let rows = 0;
+        // for (let i = 0; i < this.grid.length; i++) {
+        //     rows += this.grid[i].length;
+        // }
+        // return rows;
+        return this.grid[0].length;
     }
 
     cols() {
-        //TODO
+        return this.grid.length;
     }
 
     size() {
-        //TODO
+        let size = 0;
+        for (let i = 0; i < this.grid.length; i++) {
+            size += this.grid[i].length;
+        }
+        return size;
     }
 
     fill() {
         //TODO
     }
-
-    paramConversion(col: number, row: number): IColRow;
-    paramConversion(colRow: IColRow): IColRow;
 
     paramConversion(param1: number | IColRow, param2?: number) {
         if (typeof param1 === "number" && typeof param2 === "number") {
