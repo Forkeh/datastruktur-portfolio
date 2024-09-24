@@ -34,8 +34,10 @@ export default class Grid {
         }
     }
 
-    get(param1: IRowCol | number, param2?: number): number {
+    get(param1: IRowCol | number, param2?: number) {
         const { row, col } = this.paramConversion(param1, param2);
+
+        if (row > this.rows() - 1 || col > this.cols() - 1) return undefined;
 
         return this.grid[row][col];
     }
@@ -98,11 +100,25 @@ export default class Grid {
     nextInRow(param1: IRowCol | number, param2?: number) {
         const { row, col } = this.paramConversion(param1, param2);
 
-        return this.get(row + 1, col);
+        const value = this.get(row + 1, col);
+
+        if (value) {
+            return { row: row + 1, col, value };
+        } else {
+            return undefined;
+        }
     }
 
-    nextInCol() {
-        //TODO
+    nextInCol(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        const value = this.get(row, col + 1);
+
+        if (value) {
+            return { row, col: col + 1, value };
+        } else {
+            return undefined;
+        }
     }
 
     north() {
