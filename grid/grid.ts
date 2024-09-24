@@ -21,6 +21,7 @@ export default class Grid {
         console.table(this.grid);
     }
 
+    // Method overload definitions
     set(colRows: IRowCol, value: number): void;
     set(row: number, value: number, col: number): void;
 
@@ -37,12 +38,18 @@ export default class Grid {
     get(param1: IRowCol | number, param2?: number) {
         const { row, col } = this.paramConversion(param1, param2);
 
-        if (row > this.rows() - 1 || col > this.cols() - 1) return undefined;
+        // Check if out of bounds
+        if (row >= this.rows() || row < 0 || col >= this.cols() || col < 0) {
+            console.log("OUT OF BOUNDS");
 
-        return this.grid[row][col];
+            return undefined;
+        }
+
+        const cell = this.grid[row][col];
+        console.log("GET CELL:", cell);
+        return cell;
     }
 
-    // TODO: Hvad menes der præcis med den her, hvad skal returneres?
     indexFor(param1: IRowCol | number, param2?: number) {
         const { row, col } = this.paramConversion(param1, param2);
 
@@ -121,20 +128,52 @@ export default class Grid {
         }
     }
 
-    north() {
-        //TODO
+    north(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        if (row - 1 < 0) {
+            return undefined;
+        }
+
+        const value = this.get(row - 1, col);
+
+        return { row: row - 1, col, value };
     }
 
-    south() {
-        //TODO
+    south(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        if (row + 1 >= this.rows()) {
+            return undefined;
+        }
+
+        const value = this.get(row + 1, col);
+
+        return { row: row + 1, col, value };
     }
 
-    west() {
-        //TODO
+    west(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        if (col - 1 < 0) {
+            return undefined;
+        }
+
+        const value = this.get(row, col - 1);
+
+        return { row, col: col - 1, value };
     }
 
-    east() {
-        //TODO
+    east(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        if (col + 1 >= this.cols()) {
+            return undefined;
+        }
+
+        const value = this.get(row, col + 1);
+
+        return { row, col: col + 1, value };
     }
 
     rows() {
@@ -146,11 +185,7 @@ export default class Grid {
     }
 
     size() {
-        let size = 0;
-        for (let i = 0; i < this.grid.length; i++) {
-            size += this.grid[i].length;
-        }
-        return size;
+        return this.rows() * this.cols();
     }
 
     fill(value: number) {
