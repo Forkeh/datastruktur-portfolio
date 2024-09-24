@@ -19,8 +19,9 @@ grid.dump();
 console.log("Cols:", grid.cols());
 console.log("Rows:", grid.rows());
 console.log("Size:", grid.size());
-// // grid.fill(3);
 console.log("IndexFor:", grid.indexFor(2, 4));
 console.log("rowColFor", grid.rowColFor(14));
-
-// grid.dump();
+// grid.fill(3);
+grid.neighbours(1, 3);
+grid.neighbourValues(1, 3);
+grid.dump();

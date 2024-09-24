@@ -1,4 +1,4 @@
-interface IColRow {
+interface IRowCol {
     row: number;
     col: number;
 }
@@ -21,10 +21,10 @@ export default class Grid {
         console.table(this.grid);
     }
 
-    set(colRows: IColRow, value: number): void;
+    set(colRows: IRowCol, value: number): void;
     set(row: number, value: number, col: number): void;
 
-    set(param1: IColRow | number, value: number, param2?: number): void {
+    set(param1: IRowCol | number, value: number, param2?: number): void {
         const { row, col } = this.paramConversion(param1, param2);
 
         const cell = this.grid[row][col];
@@ -34,16 +34,16 @@ export default class Grid {
         }
     }
 
-    get(param1: IColRow | number, param2?: number): number {
+    get(param1: IRowCol | number, param2?: number): number {
         const { row, col } = this.paramConversion(param1, param2);
 
         return this.grid[row][col];
     }
 
     // TODO: Hvad menes der præcis med den her, hvad skal returneres?
-    indexFor(param1: IColRow | number, param2?: number) {
+    indexFor(param1: IRowCol | number, param2?: number) {
         const { row, col } = this.paramConversion(param1, param2);
-        
+
         if (row > this.rows() - 1 || col > this.cols() - 1) return;
 
         return row * this.cols() + col;
@@ -58,16 +58,47 @@ export default class Grid {
         return { row, col };
     }
 
-    neighbours() {
-        //TODO
+    neighbours(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+        const neighbours = [];
+
+        // TODO: Can code be made smarter with less loops?
+        for (let y = -1; y <= 1; y++) {
+            for (let x = -1; x <= 1; x++) {
+                if (!(x === 0 && y === 0)) {
+                    const index = this.indexFor(row + y, col + x);
+
+                    if (index) {
+                        const rowColObj = this.rowColFor(index);
+                        neighbours.push(rowColObj);
+                    }
+                }
+            }
+        }
+        console.log("neighbours", neighbours);
+        return neighbours;
     }
 
-    neighbourValues() {
-        //TODO
+    neighbourValues(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        const neighbours = this.neighbours(row, col);
+        const neighboursValues = [];
+
+        // TODO: Can code be made smarter with less loops?
+        for (let i = 0; i < neighbours.length; i++) {
+            const current = neighbours[i];
+            const value = this.get(current!.row, current?.col);
+            neighboursValues.push(value);
+        }
+        console.log("neighbour values:", neighboursValues);
+        return neighboursValues;
     }
 
-    nextInRow() {
-        //TODO
+    nextInRow(param1: IRowCol | number, param2?: number) {
+        const { row, col } = this.paramConversion(param1, param2);
+
+        return this.get(row + 1, col);
     }
 
     nextInCol() {
@@ -107,18 +138,18 @@ export default class Grid {
     }
 
     fill(value: number) {
-        for (let col = 0; col < this.grid.length; col++) {
-            for (let row = 0; row < this.grid[col].length; row++) {
-                this.grid[col][row] = value;
+        for (let row = 0; row < this.grid.length; row++) {
+            for (let col = 0; col < this.grid[row].length; col++) {
+                this.grid[row][col] = value;
             }
         }
     }
 
-    paramConversion(param1: number | IColRow, param2?: number) {
+    paramConversion(param1: number | IRowCol, param2?: number) {
         if (typeof param1 === "number" && typeof param2 === "number") {
             return { row: param1, col: param2 };
         } else if (typeof param1 === "object") {
-            return param1 as IColRow;
+            return param1 as IRowCol;
         }
         throw new Error("Invalid conversion arguments");
     }
