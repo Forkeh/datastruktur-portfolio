@@ -1,21 +1,25 @@
 import { Node, Tree } from "./Tree.js";
 
-const root = new Node(null, [], null);
+const root = new Node(null);
 
-const node01 = new Node(root, [], 1);
-const node02 = new Node(root, [], 2);
-const node03 = new Node(node01, [], 3);
-const node04 = new Node(node01, [], 4);
-const node05 = new Node(node02, [], 5);
-const node06 = new Node(node03, [], 6);
+const node01 = new Node(1);
+const node02 = new Node(2);
+const node03 = new Node(3);
+const node04 = new Node(4);
+const node05 = new Node(5);
+const node06 = new Node(6);
 
-root.childNodes.push(node01, node02);
-node01.parent = root;
-node02.parent = root;
-node01.childNodes.push(node03, node04);
-node02.childNodes.push(node05);
-node03.childNodes.push(node06);
+root.appendChild(node01);
+root.appendChild(node02);
+node01.appendChild(node03);
+node01.appendChild(node04);
+node02.appendChild(node05);
+node04.appendChild(node06);
 
-console.log("FIRST CHILD: ", root.firstChild());
-console.log("LAST CHILD: ", root.lastChild());
-console.log("HAS CHILD NODES: ", root.hasChildNodes());
+console.log("FIRST CHILD: ", node04.firstChild());
+console.log("LAST CHILD: ", node04.lastChild());
+console.log("HAS CHILD NODES: ", node04.hasChildNodes());
+
+node01.removeChild(node03);
+node01.replaceChild(node03, node04);
+console.log(node01);

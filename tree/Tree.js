@@ -1,7 +1,9 @@
 export class Node {
-    constructor(parent, childNodes, value) {
-        this.parent = parent;
-        this.childNodes = childNodes;
+    parent = null;
+    childNodes = [];
+    value;
+
+    constructor(value) {
         this.value = value;
     }
 
@@ -18,15 +20,25 @@ export class Node {
     }
 
     appendChild(child) {
-        //TODO
+        child.parent = this;
+        this.childNodes.push(child);
     }
 
     removeChild(child) {
-        //TODO
+        const index = this.childNodes.indexOf(child);
+        if (index > -1) {
+            this.childNodes.splice(index, 1);
+        }
     }
 
     replaceChild(newChild, oldChild) {
-        //TODO
+        const index = this.childNodes.indexOf(oldChild);
+
+        if (index !== -1) {
+            newChild.parent = this;
+            this.childNodes[index] = newChild;
+            oldChild.parent = null;
+        }
     }
 }
 
