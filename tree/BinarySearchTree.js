@@ -14,6 +14,7 @@ export class BinarySearchTree {
         // Otherwise, find the correct place to insert the new node
         let current = this.root;
         let parent = null;
+
         while (current && current.item !== item) {
             parent = current;
             if (item < current.item) {
@@ -28,7 +29,7 @@ export class BinarySearchTree {
         }
 
         // Create the new node and append it to the parent
-        const newNode = new BSTNode(item, parent);
+        const newNode = this.createChild(item, parent);
         if (item < parent.item) {
             parent.left = newNode;
         } else {
@@ -36,7 +37,7 @@ export class BinarySearchTree {
         }
 
         // Update the height of the parent node
-        this.updateHeight(parent);
+        this.maintain(parent);
 
         //TODO
         // Rebalance the tree
@@ -240,6 +241,8 @@ export class BinarySearchTree {
                 oldChild.right.parent = newChild;
             }
         }
+
+        this.updateHeight(newChild);
     }
 
     // TODO Unused?
@@ -261,7 +264,9 @@ export class BinarySearchTree {
     }
 
     skew(node) {
-        //TODO
+        let leftHeight = node.left ? node.left.height : -1;
+        let rightHeight = node.right ? node.right.height : -1;
+        return rightHeight - leftHeight;
     }
 
     rotateRight(node) {
@@ -274,6 +279,18 @@ export class BinarySearchTree {
 
     maintain(node) {
         //TODO
+        this.updateHeight(node);
+        const skew = this.skew(node);
+
+         if (skew < -1) {
+             console.log(`Træ er skævt mod venstre ved ${node.item}!`);
+         } else if (skew > 1) {
+             console.log(`Træ er skævt mod højre ved ${node.item}!`);
+         }
+
+        if (node.parent) {
+            this.maintain(node.parent);
+        }
     }
 }
 
