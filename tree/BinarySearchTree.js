@@ -1,7 +1,10 @@
 export class BinarySearchTree {
     root;
     size;
-    constructor() {}
+    comperatorfunction;
+    constructor(comperatorfunction) {
+        this.comperatorfunction = comperatorfunction;
+    }
 
     add(item) {
         // If the tree is empty, create a new node and set it as the root
@@ -17,7 +20,7 @@ export class BinarySearchTree {
 
         while (current && current.item !== item) {
             parent = current;
-            if (item < current.item) {
+            if (this.comperatorfunction(item, current.item) < 0) {
                 current = current.left;
             } else {
                 current = current.right;
@@ -30,7 +33,7 @@ export class BinarySearchTree {
 
         // Create the new node and append it to the parent
         const newNode = this.createChild(item, parent);
-        if (item < parent.item) {
+        if (this.comperatorfunction(item, parent.item) < 0) {
             parent.left = newNode;
         } else {
             parent.right = newNode;
@@ -38,10 +41,6 @@ export class BinarySearchTree {
 
         // Update the height of the parent node
         this.maintain(parent);
-
-        //TODO
-        // Rebalance the tree
-        // this.rebalance(parent);
 
         // Increment the size of the tree
         this.size++;
@@ -52,7 +51,7 @@ export class BinarySearchTree {
         while (current) {
             if (item === current.item) {
                 return true;
-            } else if (item < current.item) {
+            } else if (this.comperatorfunction(item, current.item) < 0) {
                 current = current.left;
             } else {
                 current = current.right;
@@ -332,7 +331,6 @@ export class BinarySearchTree {
     }
 
     maintain(node) {
-        //TODO
         this.updateHeight(node);
         const skew = this.skew(node);
 
