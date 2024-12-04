@@ -270,11 +270,65 @@ export class BinarySearchTree {
     }
 
     rotateRight(node) {
-        //TODO
+        const newRoot = node.left;
+        const parent = node.parent;
+
+        if (parent) {
+            if (parent.left === node) {
+                parent.left = newRoot;
+            } else {
+                parent.right = newRoot;
+            }
+        } else {
+            this.root = newRoot;
+        }
+
+        node.left = newRoot.right;
+        newRoot.right = node;
+
+        this.updateHeight(node);
+        this.updateHeight(newRoot);
+
+        return newRoot;
+    }
+
+    rotateLeft(node) {
+        const newRoot = node.right;
+        const parent = node.parent;
+
+        if (parent) {
+            if (parent.left === node) {
+                parent.left = newRoot;
+            } else {
+                parent.right = newRoot;
+            }
+        } else {
+            this.root = newRoot;
+        }
+
+        node.right = newRoot.left;
+        newRoot.left = node;
+
+        this.updateHeight(node);
+        this.updateHeight(newRoot);
+
+        return newRoot;
     }
 
     rebalance(node) {
-        //TODO
+        const skew = this.skew(node);
+
+        if (skew < -1) {
+            if (this.skew(node.left) > 0) {
+                node.left = this.rotateLeft(node.left);
+            }
+            this.rotateRight(node);
+        } else if (skew > 1) {
+            if (this.skew(node.right) < 0) {
+                node.right = this.rotateRight(node.right);
+            }
+            this.rotateLeft(node);
+        }
     }
 
     maintain(node) {
@@ -282,11 +336,13 @@ export class BinarySearchTree {
         this.updateHeight(node);
         const skew = this.skew(node);
 
-         if (skew < -1) {
-             console.log(`Træ er skævt mod venstre ved ${node.item}!`);
-         } else if (skew > 1) {
-             console.log(`Træ er skævt mod højre ved ${node.item}!`);
-         }
+        if (skew < -1) {
+            console.log(`Træ er skævt mod venstre ved ${node.item}!`);
+            this.rebalance(node);
+        } else if (skew > 1) {
+            console.log(`Træ er skævt mod højre ved ${node.item}!`);
+            this.rebalance(node);
+        }
 
         if (node.parent) {
             this.maintain(node.parent);
